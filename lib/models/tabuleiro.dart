@@ -6,8 +6,8 @@ class Tabuleiro {
   final int linhas;
   final int colunas;
   final int qtdBombas;
-
   final List<Campo> _campos = [];
+
   Tabuleiro({
     required this.linhas,
     required this.colunas,
@@ -21,8 +21,8 @@ class Tabuleiro {
   void reiniciar() {
     for (var c in _campos) {
       c.reiniciar();
-      _sortearMinas();
     }
+    _sortearMinas();
   }
 
   void revelarBombas() {

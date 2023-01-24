@@ -22,7 +22,7 @@ class ResultadoWidget extends StatelessWidget implements PreferredSizeWidget {
 
   IconData _getIcon() {
     if (venceu == null) {
-      return Icons.sentiment_neutral_outlined;
+      return Icons.sentiment_satisfied;
     } else if (venceu!) {
       return Icons.sentiment_very_satisfied;
     } else {
@@ -33,7 +33,7 @@ class ResultadoWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey,
+      color: Colors.grey.shade600,
       child: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
