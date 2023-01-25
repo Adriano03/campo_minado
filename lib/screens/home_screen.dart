@@ -26,8 +26,8 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
-            Color.fromARGB(122, 2, 50, 65),
-            Color.fromARGB(227, 114, 62, 5),
+            Color.fromARGB(121, 17, 120, 151),
+            Color.fromARGB(223, 112, 63, 14),
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: Padding(
@@ -49,6 +49,14 @@ class HomeScreen extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     controller: qtdeBomb,
                     decoration: const InputDecoration(
+                      icon: Padding(
+                        padding: EdgeInsets.only(top: 23),
+                        child: Icon(
+                          Icons.play_circle_outlined,
+                          size: 35,
+                          color: Colors.yellow,
+                        ),
+                      ),
                       label: Text(
                         'Digite a quantidade de bombas!',
                         style: TextStyle(
@@ -58,12 +66,16 @@ class HomeScreen extends StatelessWidget {
                     ),
                     validator: (qtde) {
                       final qtdeBomb = qtde ?? '';
-                      if (qtdeBomb.isEmpty) {
-                        return 'Campo Obrigatório!';
+                      if (qtdeBomb.trim().isEmpty ||
+                          qtdeBomb.contains(RegExp('[,.-]'))) {
+                        return 'INFORME UM NÚMERO VÁLIDO!';
+                      } else if (int.parse(qtdeBomb) < 1) {
+                        return 'QUANTIDE DE BOMBAS INVÁLIDOS!';
                       } else if (int.parse(qtdeBomb) > 350) {
-                        return 'Número máximo permitido de bombas é de 350!';
+                        return 'NUMERO MÁXIMO DE BOMBAS É DE 350!';
+                      } else {
+                        return null;
                       }
-                      return null;
                     },
                   ),
                 ),

@@ -42,20 +42,28 @@ class ResultadoWidget extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              venceu != null
+                  ? CircleAvatar(
+                      backgroundColor: _getCor(),
+                      child: IconButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: onReiniciar,
+                        icon: const Icon(
+                          Icons.settings_backup_restore,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                      ),
+                    )
+                  : const Padding(padding: EdgeInsets.all(0)),
               Padding(
-                padding: venceu != null
-                    ? const EdgeInsets.only(right: 22)
-                    : const EdgeInsets.only(right: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CircleAvatar(
                   backgroundColor: _getCor(),
-                  child: IconButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: onReiniciar,
-                    icon: Icon(
-                      _getIcon(),
-                      color: Colors.black,
-                      size: 35,
-                    ),
+                  child: Icon(
+                    _getIcon(),
+                    size: 35,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -66,7 +74,7 @@ class ResultadoWidget extends StatelessWidget implements PreferredSizeWidget {
                         padding: const EdgeInsets.all(0),
                         onPressed: reiniciarTotal,
                         icon: const Icon(
-                          Icons.restart_alt,
+                          Icons.home_outlined,
                           size: 35,
                           color: Colors.black,
                         ),
