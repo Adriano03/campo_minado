@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                           qtdeBomb.contains(RegExp('[,.-]'))) {
                         return 'INFORME UM NÚMERO VÁLIDO!';
                       } else if (int.parse(qtdeBomb) < 1) {
-                        return 'QUANTIDE DE BOMBAS INVÁLIDOS!';
+                        return 'QUANTIDADE DE BOMBAS INSUFICIENTES!';
                       } else if (int.parse(qtdeBomb) > 350) {
                         return 'NUMERO MÁXIMO DE BOMBAS É DE 350!';
                       } else {
