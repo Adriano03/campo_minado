@@ -1,12 +1,19 @@
+import 'package:campo_minado/screens/home_screen.dart';
+import 'package:flutter/material.dart';
+
 import 'package:campo_minado/components/resultado_widget.dart';
 import 'package:campo_minado/components/tabuleiro_widget.dart';
 import 'package:campo_minado/models/campo.dart';
 import 'package:campo_minado/models/explosao_exception.dart';
 import 'package:campo_minado/models/tabuleiro.dart';
-import 'package:flutter/material.dart';
 
 class CampoMinadoApp extends StatefulWidget {
-  const CampoMinadoApp({super.key});
+  final String qtdBombas;
+
+  CampoMinadoApp({
+    super.key,
+    required this.qtdBombas,
+  });
 
   @override
   State<CampoMinadoApp> createState() => _CampoMinadoAppState();
@@ -21,6 +28,14 @@ class _CampoMinadoAppState extends State<CampoMinadoApp> {
       _venceu = null;
       _tabuleiro!.reiniciar();
     });
+  }
+
+  void _reiniciarT() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) {
+        return HomeScreen();
+      },
+    ));
   }
 
   void _abrir(Campo campo) {
@@ -57,7 +72,7 @@ class _CampoMinadoAppState extends State<CampoMinadoApp> {
       _tabuleiro = Tabuleiro(
         linhas: qtdeLinhas,
         colunas: qtdeColunas,
-        qtdBombas: 40,
+        qtdBombas: int.parse(widget.qtdBombas),
       );
     }
     return _tabuleiro!;
@@ -65,27 +80,25 @@ class _CampoMinadoAppState extends State<CampoMinadoApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: ResultadoWidget(
-          venceu: _venceu,
-          onReiniciar: _reiniciar,
-        ),
-        body: Container(
-          color: Colors.grey.shade600,
-          child: LayoutBuilder(
-            builder: (ctx, constraints) {
-              return TabuleiroWidget(
-                tabuleiro: _getTabuleiro(
-                  constraints.maxWidth,
-                  constraints.maxHeight,
-                ),
-                onAbrir: _abrir,
-                onAlternarMarcacao: _alternarMarcacao,
-              );
-            },
-          ),
+    return Scaffold(
+      appBar: ResultadoWidget(
+        venceu: _venceu,
+        onReiniciar: _reiniciar,
+        reiniciarTotal: _reiniciarT,
+      ),
+      body: Container(
+        color: Colors.grey.shade600,
+        child: LayoutBuilder(
+          builder: (ctx, constraints) {
+            return TabuleiroWidget(
+              tabuleiro: _getTabuleiro(
+                constraints.maxWidth,
+                constraints.maxHeight,
+              ),
+              onAbrir: _abrir,
+              onAlternarMarcacao: _alternarMarcacao,
+            );
+          },
         ),
       ),
     );

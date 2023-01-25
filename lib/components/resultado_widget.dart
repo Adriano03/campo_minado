@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class ResultadoWidget extends StatelessWidget implements PreferredSizeWidget {
   final bool? venceu;
   final Function()? onReiniciar;
+  final Function()? reiniciarTotal;
 
   const ResultadoWidget({
     required this.venceu,
     required this.onReiniciar,
+    required this.reiniciarTotal,
     super.key,
   });
 
@@ -37,17 +39,41 @@ class ResultadoWidget extends StatelessWidget implements PreferredSizeWidget {
       child: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
-          child: CircleAvatar(
-            backgroundColor: _getCor(),
-            child: IconButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: onReiniciar,
-              icon: Icon(
-                _getIcon(),
-                color: Colors.black,
-                size: 35,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: venceu != null
+                    ? const EdgeInsets.only(right: 22)
+                    : const EdgeInsets.only(right: 0),
+                child: CircleAvatar(
+                  backgroundColor: _getCor(),
+                  child: IconButton(
+                    padding: const EdgeInsets.all(0),
+                    onPressed: onReiniciar,
+                    icon: Icon(
+                      _getIcon(),
+                      color: Colors.black,
+                      size: 35,
+                    ),
+                  ),
+                ),
               ),
-            ),
+              venceu != null
+                  ? CircleAvatar(
+                      backgroundColor: _getCor(),
+                      child: IconButton(
+                        padding: const EdgeInsets.all(0),
+                        onPressed: reiniciarTotal,
+                        icon: const Icon(
+                          Icons.restart_alt,
+                          size: 35,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )
+                  : const Padding(padding: EdgeInsets.all(0)),
+            ],
           ),
         ),
       ),
