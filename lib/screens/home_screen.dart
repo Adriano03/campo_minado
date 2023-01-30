@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
+
 import 'package:campo_minado/screens/campo_minado_app.dart';
 import 'package:flutter/material.dart';
 
@@ -6,10 +8,15 @@ class HomeScreen extends StatelessWidget {
 
   final qtdeBomb = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
-  void _submit(BuildContext context) {
+  void _submit(BuildContext context) async {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) return;
+    isLoading = true;
+
+    FocusScope.of(context).unfocus();
+    await Future.delayed(const Duration(milliseconds: 500));
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
@@ -90,10 +97,17 @@ class HomeScreen extends StatelessWidget {
                       side: const BorderSide(color: Colors.yellow, width: 0.3),
                     ),
                     onPressed: () => _submit(context),
-                    icon: const Icon(
-                      Icons.games_outlined,
-                      color: Colors.yellow,
-                    ),
+                    icon: isLoading
+                        ? const SizedBox(
+                            height: 25,
+                            width: 25,
+                            child:
+                                CircularProgressIndicator(color: Colors.yellow),
+                          )
+                        : const Icon(
+                            Icons.games_outlined,
+                            color: Colors.yellow,
+                          ),
                     label: const Text(
                       '    INICIAR JOGO',
                       style: TextStyle(

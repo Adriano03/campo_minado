@@ -10,7 +10,7 @@ import 'package:campo_minado/models/tabuleiro.dart';
 class CampoMinadoApp extends StatefulWidget {
   final String qtdBombas;
 
-  CampoMinadoApp({
+  const CampoMinadoApp({
     super.key,
     required this.qtdBombas,
   });
